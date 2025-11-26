@@ -1,0 +1,77 @@
+/* 全体の設定 */
+body {
+    font-family: 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif; /* 日本語フォント */
+    background-color: #ffe0f0; /* 薄いピンクの背景 */
+    color: #444; /* 文字の色 */
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* 上部に寄せる */
+    min-height: 100vh;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 400px; /* iPhoneくらいの幅に制限 */
+    text-align: center;
+    background-color: #ffffff; /* 白いカードの背景 */
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(255, 100, 150, 0.2); /* 影を可愛く */
+    padding: 30px 20px;
+}
+
+/* タイトル */
+h1 {
+    color: #ff69b4; /* 濃いピンク */
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+}
+
+/* 写真エリア */
+.image-area {
+    margin: 20px 0;
+}
+
+#boochan-photo {
+    width: 90%; /* 幅いっぱい */
+    max-width: 300px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 結果ボックスの共通デザイン */
+.result-box {
+    background-color: #fff0f5; /* ごく薄いピンク */
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 2px solid #ffb6c1; /* 薄いピンクの枠線 */
+}
+
+/* 運勢とアドバイスの文字 */
+.result-box h2 {
+    color: #ff1493; /* マゼンタ */
+    font-size: 1.1rem;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.result-box p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #444;
+    margin: 0;
+    white-space: pre-wrap; /* 改行を有効にする */
+}
+
+.footer-note {
+    color: #aaa;
+    font-size: 0.8rem;
+    margin-top: 30px;
+}
+
+/* PWAとしてホーム画面に追加した時のための設定（重要！） */
+/* 画面上部のセーフエリアを無視して全画面表示にするための設定ですが、ここでは割愛します */
+/* 開発ではいったん無視してOKです！ */
