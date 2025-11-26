@@ -2,12 +2,16 @@
 
 // 運勢のリスト
 const fortunes = [
-    { name: "✨ 大吉！ ✨", advice: "今日は最高の運気！新しいことに挑戦すると、ブーちゃんが応援してくれるよ！" },
-    { name: "💖 中吉 💖", advice: "穏やかでハッピーな一日。美味しいご飯を食べて心と体を満たそう！" },
-    { name: "🍀 吉 🍀", advice: "小さな幸運がたくさん！見逃さないように周りをよく見てみてね！" },
-    { name: "☁️ 小吉 ☁️", advice: "のんびり過ごすのが吉。疲れていたら無理せず休憩を。ブーちゃんが癒やすよ。" },
-    { name: "😊 末吉 😊", advice: "少しずつ運気上昇中！焦らず、自分のペースで進もうね。" }
+    { name: "✨ 大吉！ ✨", advice: "すごい！！大吉だぶ！！！今日一日、幸せなことがたくさん待ってそう！！ぼくもおうちからおうえんしてるだぶ！！" },
+    { name: "💖 中吉 💖", advice: "今日は穏やかでハッピーな一日になりそうだぶ。美味しいご飯を食べて心と体をぽかぽかに！！" },
+    { name: "🍀 吉 🍀", advice: "今日は小さな幸運がたくさんありそうだぶ！見逃さないように周りをよく見てみてね！ぼくのことも忘れずにみてほしいだぶ。。。" },
+    { name: "☁️ 小吉 ☁️", advice: "きょうはのんびり過ごすのがいいだぶ。疲れていたら無理せず休憩をとろう！！ぼくは毎日休息ばっかりだけどね。" },
+    { name: "🌈 大大吉！ 🌈", advice: "ミラクル発生の予感！遠慮しないで、やりたいことを全部やっちゃおう！ぼくが味方になるだぶ！わあ、頼もしい！！" }, // ← ここにもカンマを打つ！
+    { name: "🐷 ブー吉 🐷", advice: "今日は豚カツ、豚まん、豚肉料理がラッキーアイテム！元気とスタミナが湧いてくるよ！美味しく食べてぼくとハッピーになるんだぶ！" },
+    
+    { name: "😊 末吉 😊", advice: "少しずつ運気上昇中！焦らず、自分のペースで進もうね。ぶーぶペースだぶ！！" }
 ];
+
 
 // 写真のリスト（自分でブーちゃんの写真ファイル名に変えてね！）
 const photos = [];
@@ -17,45 +21,56 @@ for (let i = 1; i <= 51; i++) {
     photos.push(`images/boochan_${i}.jpg`);
 }
 
-// --- 2. 運勢と写真を選ぶロジック ---
+// --- 2. 運勢と写真を選ぶロジック (ローカルストレージ対応版) ---
 
-// 今日という日付に基づいて、毎回同じ結果になるように乱数シードを生成する関数
-// （リロードするたびに結果が変わると困るので、日替わりにするための工夫！）
-function getDailySeed() {
-    const today = new Date();
-    // YYYYMMDD の形で日付を取得 (例: 20251126)
-    return parseInt(`${today.getFullYear()}${today.getMonth() + 1}${today.getDate()}`);
-}
-
-// シードに基づいて乱数を生成する関数 (Xorshift)
-function xorshift(seed) {
-    let x = seed;
-    x ^= (x << 13);
-    x ^= (x >> 17);
-    x ^= (x << 5);
-    // 0から1の間の浮動小数点数を返す
-    return Math.abs((x % 1000) / 1000); 
-}
-
-// 今日の運勢と写真を選ぶ
-function selectDailyContent() {
-    const seed = getDailySeed();
-    
-    // 運勢と写真を選ぶためのランダムなインデックスを計算
-    // Math.floor(乱数 * 配列の長さ)
-    const fortuneIndex = Math.floor(xorshift(seed + 1) * fortunes.length); 
-    const photoIndex = Math.floor(xorshift(seed + 2) * photos.length); // 運勢とは違う乱数を使う
+// 運勢と写真を選ぶ（ただし、ランダムに）
+function getRandomContent() {
+    // 完全にランダムなインデックスを生成
+    const fortuneIndex = Math.floor(Math.random() * fortunes.length); 
+    const photoIndex = Math.floor(Math.random() * photos.length);
 
     const selectedFortune = fortunes[fortuneIndex];
     const selectedPhoto = photos[photoIndex];
 
-    // 選んだ運勢と写真を返す
     return {
         fortuneName: selectedFortune.name,
         adviceText: selectedFortune.advice,
         photoFile: selectedPhoto
     };
 }
+
+// 運勢を選ぶメイン関数（ローカルストレージをチェックする）
+function selectDailyContent() {
+    // 1. ローカルストレージから保存済みの結果を取得する
+    const savedContentJson = localStorage.getItem('boochan_daily_content');
+    
+    // 2. もしメモ（保存データ）があれば、それを使う
+    if (savedContentJson) {
+        // JSON形式のテキストをJavaScriptのデータに戻して返す
+        return JSON.parse(savedContentJson);
+    } 
+    
+    // 3. メモがなければ、新しくランダムな結果を選び、メモ（ストレージ）に保存する
+    else {
+        const newContent = getRandomContent();
+        
+        // 選んだ結果をJSON形式のテキストに変換
+        const newContentJson = JSON.stringify(newContent); 
+        
+        // ローカルストレージに保存する
+        localStorage.setItem('boochan_daily_content', newContentJson); 
+        
+        return newContent;
+    }
+}
+
+
+
+
+
+
+
+
 
 
 // --- 3. 画面に表示する ---
