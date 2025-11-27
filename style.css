@@ -75,3 +75,103 @@ h1 {
 /* PWAとしてホーム画面に追加した時のための設定（重要！） */
 /* 画面上部のセーフエリアを無視して全画面表示にするための設定ですが、ここでは割愛します */
 /* 開発ではいったん無視してOKです！ */
+/* --- ToDoリスト スタイル --- */
+
+.todo-container {
+    padding: 20px;
+}
+
+#todo-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+#task-text {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #deb887; /* 茶色の枠線 */
+    border-radius: 5px;
+    font-family: inherit; /* フォントを引き継ぐ */
+}
+
+#task-date {
+    padding: 8px;
+    border: 1px solid #deb887; /* 茶色の枠線 */
+    border-radius: 5px;
+    font-family: inherit;
+}
+
+#add-task-btn {
+    background-color: #a0522d; /* 濃い茶色 */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: inherit;
+}
+
+#add-task-btn:active {
+    background-color: #8b4513;
+}
+
+#todo-list {
+    list-style: none;
+    padding: 0;
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #deb887; /* 点線の区切り */
+}
+
+.todo-item:last-child {
+    border-bottom: none;
+}
+
+.task-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.task-date {
+    font-size: 0.8rem;
+    color: #8b4513; /* 濃い茶色 */
+    font-weight: bold;
+}
+
+.task-text {
+    font-size: 1rem;
+    margin-top: 3px;
+}
+
+.task-text.completed {
+    text-decoration: line-through;
+    color: #aaa;
+}
+
+.task-actions button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+.complete-btn {
+    background-color: #ffb6c1; /* 薄いピンク */
+    color: #8b4513;
+}
+
+.delete-btn {
+    background-color: #f08080; /* やや赤い色 */
+    color: white;
+}

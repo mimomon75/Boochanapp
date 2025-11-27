@@ -94,3 +94,93 @@ document.addEventListener('DOMContentLoaded', () => {
         photoElement.src = "https://via.placeholder.com/300x300?text=Boochan+Photo+Missing"; // 代替画像
     };
 });
+
+// --- 5. ToDoリスト機能のロジック ---
+
+const taskText = document.getElementById('task-text');
+const taskDate = document.getElementById('task-date');
+const addTaskBtn = document.getElementById('add-task-btn');
+const todoList = document.getElementById('todo-list');
+
+// ローカルストレージからタスクを取得する
+function getTasks() {
+    const tasksJson = localStorage.getItem('boochan_tasks');
+    return tasksJson ? JSON.parse(tasksJson) : [];
+}
+
+// ローカルストレージにタスクを保存する
+function saveTasks(tasks) {
+    localStorage.setItem('boochan_tasks', JSON.stringify(tasks));
+}
+
+// タスクをリストとしてHTMLに描画する
+function renderTasks() {
+    const tasks = getTasks();
+    todoList.innerHTML = ''; // リストを一旦クリア
+
+    tasks.forEach((task, index) => {
+        const li = document.createElement('li');
+        li.classList.add('todo-item');
+        
+        // 期限日のフォーマット (YYYY-MM-DD -> YYYY/MM/DD)
+        const formattedDate = task.date.replace(/-/g, '/'); 
+        
+        li.innerHTML = `
+            <span class="task-info">
+                <span class="task-date">[${formattedDate} まで]</span> 
+                <span class="task-text ${task.completed ? 'completed' : ''}">${task.text}</span>
+            </span>
+            <div class="task-actions">
+                <button class="complete-btn" data-index="${index}">完了</button>
+                <button class="delete-btn" data-index="${index}">削除</button>
+            </div>
+        `;
+        todoList.appendChild(li);
+    });
+}
+
+// タスク追加ボタンのイベントリスナー
+addTaskBtn.addEventListener('click', () => {
+    const text = taskText.value.trim();
+    const date = taskDate.value;
+
+    if (text !== '' && date !== '') {
+        const tasks = getTasks();
+        const newTask = {
+            text: text,
+            date: date, // YYYY-MM-DD 形式
+            completed: false
+        };
+        tasks.push(newTask);
+        saveTasks(tasks);
+        renderTasks();
+
+        // フォームをリセット
+        taskText.value = '';
+        taskDate.value = '';
+    }
+});
+
+// 完了/削除ボタンのイベントリスナー
+todoList.addEventListener('click', (event) => {
+    const index = event.target.dataset.index;
+    if (index === undefined) return;
+
+    const tasks = getTasks();
+    const taskIndex = parseInt(index);
+
+    if (event.target.classList.contains('complete-btn')) {
+        // 完了状態を切り替える
+        tasks[taskIndex].completed = !tasks[taskIndex].completed;
+        saveTasks(tasks);
+        renderTasks();
+    } else if (event.target.classList.contains('delete-btn')) {
+        // タスクを削除する
+        tasks.splice(taskIndex, 1);
+        saveTasks(tasks);
+        renderTasks();
+    }
+});
+
+// アプリ起動時にタスクを描画
+renderTasks();

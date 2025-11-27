@@ -22,21 +22,52 @@
     <div class="app-container">
         <h1>🌟 今日も頑張るあなたへ 🌟</h1>
         
-        <div class="image-area">
-            <img id="boochan-photo" src="boochan_default.png" alt="可愛いブーちゃんの写真"> 
-        </div>
+        <div class="fortune-section">
+            <div class="image-area">
+                <img id="boochan-photo" src="boochan_default.png" alt="可愛いぶーちゃんの写真"> 
+            </div>
 
-        <div class="result-box fortune-box">
-            <h2>🔮 今日の運勢 🔮</h2>
-            <p id="today-fortune">結果を読み込み中...</p>
-        </div>
+            <div class="result-box fortune-box">
+                <h2>🔮 今日の運勢 🔮</h2>
+                <p id="today-fortune">結果を読み込み中...</p>
+            </div>
 
-        <div class="result-box advice-box">
-            <h2>💖 癒やしのアドバイス 💖</h2>
-            <p id="healing-advice">アドバイスを読み込み中...</p>
+            <div class="result-box advice-box">
+                <h2>💖 癒やしのアドバイス 💖</h2>
+                <p id="healing-advice">アドバイスを読み込み中...</p>
+            </div>
         </div>
-
-        <p class="footer-note">かわいいぶーちゃんがきみの毎日を応援しているよ！</p>
+        
+        <div class="result-box todo-container">
+            <h1>ぶーちゃんの ToDo リスト 🐾</h1>
+            
+            <div id="urgent-tasks">
+                <div id="today-tasks-box" class="urgent-task-box">
+                    <h2>📅 今日まで (TODAY)</h2>
+                    <ul id="today-list">
+                        </ul>
+                </div>
+                <div id="tomorrow-tasks-box" class="urgent-task-box">
+                    <h2>🗓️ 明日まで (TOMORROW)</h2>
+                    <ul id="tomorrow-list">
+                        </ul>
+                </div>
+            </div>
+            
+            <div id="todo-input">
+                <input type="text" id="task-text" placeholder="やること">
+                <input type="date" id="task-date">
+                <button id="add-task-btn">追加</button>
+            </div>
+            
+            <div class="main-task-area">
+                <h2>全てのタスク</h2>
+                <ul id="all-tasks-list">
+                    </ul>
+            </div>
+        </div>
+        
+        <p class="footer-note">ぶーちゃんがあなたの毎日を応援しているよ！</p>
     </div>
     
     <script src="script.js"></script>
