@@ -175,3 +175,16 @@ h1 {
     background-color: #f08080; /* やや赤い色 */
     color: white;
 }
+
+/* --- バージョン表示スタイル --- */
+#version-display {
+    position: fixed; /* 画面に対して固定 */
+    top: 5px; /* 上から5px */
+    left: 5px; /* 左から5px */
+    font-size: 0.7rem;
+    color: #a0522d; /* 茶色 */
+    background-color: rgba(255, 255, 255, 0.8); /* 半透明の白背景 */
+    padding: 2px 5px;
+    border-radius: 3px;
+    z-index: 1000; /* 最前面に表示 */
+}

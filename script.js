@@ -184,3 +184,39 @@ todoList.addEventListener('click', (event) => {
 
 // アプリ起動時にタスクを描画
 renderTasks();
+// --- 6. バージョン表示ロジック ---
+
+function displayVersion() {
+    const scripts = document.getElementsByTagName('script');
+    let scriptSrc = '';
+    
+    // 実行中の script.js の src を探す
+    for (let i = 0; i < scripts.length; i++) {
+        if (scripts[i].src.includes('script.js')) {
+            scriptSrc = scripts[i].src;
+            break;
+        }
+    }
+
+    const versionElement = document.getElementById('version-display');
+    if (!versionElement) return;
+
+    if (scriptSrc) {
+        try {
+            // URLオブジェクトを使ってクエリパラメータ 'v' を取得
+            const url = new URL(scriptSrc);
+            const versionParam = url.searchParams.get('v'); 
+            
+            if (versionParam) {
+                // 例: versionParamが'1'なら 'v1' と表示
+                versionElement.textContent = `v${versionParam}`;
+            }
+        } catch (e) {
+            // エラー処理
+            console.error("Failed to parse script URL for version:", e);
+        }
+    }
+}
+
+// アプリ起動時にバージョンを表示
+displayVersion();
